@@ -1,49 +1,49 @@
 describe('Login Page Tests', () => {
   const baseUrl = 'https://the-internet.herokuapp.com/login';
 
-  // Hook that runs before each test to navigate to the login page
+  // Before every test, go to the login page
   beforeEach(() => {
     cy.visit(baseUrl);
   });
 
-  // Test case: Successful login with valid credentials
+  // Test 1: Login with correct username and password
   it('Should login successfully with valid credentials', () => {
     cy.get('#username').type('Ricardo'); 
     cy.get('#password').type('Senha123');
     cy.get('button[type="submit"]').click();
 
-  // Assert that the success message is displayed
+  // should show a success message
     cy.get('.flash.success')
       .should('contain.text', 'You logged into a secure area!');
   });
 
-  // Assert that the success message is displayed
+  // Test 2: Correct username, wrong password - Negative test
   it('Should fail login with invalid password', () => {
     cy.get('#username').type('Ricardo');
     cy.get('#password').type('Senha124');
     cy.get('button[type="submit"]').click();
 
-    // Assert that an error message about invalid password is shown
+    // should show an error message about the password
     cy.get('.flash.error')
       .should('contain.text', 'Your password is invalid!');
   });
 
-  // Test case: Login failure with invalid username and valid password
+  // Test 3: Wrong username, correct password - Negative test
   it('Should fail login with invalid username', () => {
     cy.get('#username').type('Ricardooo');
     cy.get('#password').type('Senha123');
     cy.get('button[type="submit"]').click();
 
-    // Assert that an error message about invalid username is shown
+    // should show an error message about the username
     cy.get('.flash.error')
       .should('contain.text', 'Your username is invalid!');
   });
 
-  // Test case: Attempt login with both fields empty
+  // Test 4: Attempt login with both fields empty - Negative test
   it('Should show error when username and password are empty', () => {
     cy.get('button[type="submit"]').click();
 
-    // Assert that a generic error message is shown
+    // should still show an error (probably about the username)
     cy.get('.flash.error')
       .should('contain.text', 'Your username is invalid!');
   });
