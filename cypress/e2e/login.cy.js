@@ -49,7 +49,7 @@ describe('Login Page Tests', () => {
   });
 
     // Test 5: Attempt login with Username field empty - Negative test
-  it('Should show error when username and password are empty', () => {
+  it('Should show error when username are empty', () => {
     cy.get('#password').type('SuperSecretPassword!');
     cy.get('button[type="submit"]').click();
   
@@ -59,7 +59,7 @@ describe('Login Page Tests', () => {
     });
 
     // Test 6: Attempt login with Password field empty - Negative test
-  it('Should show error when username and password are empty', () => {
+  it('Should show error when password are empty', () => {
     cy.get('#username').type('tomsmith');
     cy.get('button[type="submit"]').click();
   
